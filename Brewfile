@@ -17,7 +17,7 @@ brew "git-delta"
 brew "go"
 brew "httpie"
 brew "k9s"
-brew "kubernetes-cli", link: false
+brew "kubernetes-cli"
 brew "kubectx"
 brew "llvm"
 brew "lsd"
