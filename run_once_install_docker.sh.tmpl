@@ -1,0 +1,22 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env fish
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+rm -rf get-docker.sh
+
+sudo groupadd docker
+sudo usermod -aG docker (whoami)
+newgrp docker
+
+mkdir -p ~/.docker/cli-plugins/
+set latest (http https://api.github.com/repos/docker/compose/releases/latest | fx .tag_name)
+http -d -p=b https://github.com/docker/compose/releases/download/$latest/docker-compose-linux-(uname -m) -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
+# test installation
+docker compose version
+
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+printf '[boot]\ncommand = "service docker start"' | sudo tee -a /etc/wsl.conf
+{{   end }}
+
+{{ end -}}
