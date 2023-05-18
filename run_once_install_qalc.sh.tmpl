@@ -1,0 +1,7 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env fish
+set latest (http https://api.github.com/repos/Qalculate/qalculate-gtk/releases/latest | fx .tag_name | string sub -s 2)
+wget -qO- https://github.com/Qalculate/qalculate-gtk/releases/download/v$latest/qalculate-$latest-(uname -m).tar.xz | tar -xJ
+sudo cp qalculate-$latest/qalc /usr/local/bin
+rm -rf qalculate-$latest
+{{ end -}}
