@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
 tap "mike-engel/jwt-cli"
 brew "gcc"
 brew "awscli"
